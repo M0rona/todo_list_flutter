@@ -15,12 +15,7 @@ class UserRepositoryImpl implements UserRepository {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        final loginTypes = await _auth.fetchSignInMethodsForEmail(email);
-        if (loginTypes.contains('password')) {
-          throw AuthException(message: 'Email já cadastrado');
-        } else {
-          throw AuthException(message: 'Email já cadastrado pelo google!');
-        }
+        throw AuthException(message: 'Email já cadastrado');
       } else {
         throw AuthException(message: e.message ?? 'Erro ao registrar usuário');
       }
