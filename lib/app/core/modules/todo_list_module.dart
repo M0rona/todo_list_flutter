@@ -8,7 +8,7 @@ abstract class TodoListModule {
 
   TodoListModule({
     required Map<String, WidgetBuilder> routers,
-    required List<SingleChildWidget>? bindings,
+    List<SingleChildWidget>? bindings,
   })  : _routers = routers,
         _bindings = bindings;
 
@@ -16,7 +16,7 @@ abstract class TodoListModule {
         (key, pageBuilder) => MapEntry(
           key,
           (_) => TodoListPage(
-            bindings: [...?_bindings],
+            bindings: _bindings,
             page: pageBuilder,
           ),
         ),
