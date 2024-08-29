@@ -31,13 +31,9 @@ class UserRepositoryImpl implements UserRepository {
           email: email, password: password);
 
       return userCredential.user;
-    } on PlatformException catch (e, s) {
-      print(e);
-      print(s);
+    } on PlatformException catch (e) {
       throw AuthException(message: e.message ?? 'Erro ao realizar login');
-    } on FirebaseAuthException catch (e, s) {
-      print(e);
-      print(s);
+    } on FirebaseAuthException catch (e) {
       throw AuthException(message: e.message ?? 'Erro ao realizar login');
     }
   }

@@ -36,9 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           }
         }
       },
-      sucessCalback: (notifier, listenerInstace) {
-        print("Login efetuado com sucesso!");
-      },
+      sucessCalback: (notifier, listenerInstace) {},
     );
   }
 

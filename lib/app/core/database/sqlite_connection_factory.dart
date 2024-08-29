@@ -8,6 +8,7 @@ class SqliteConnectionFactory {
   static const _databaseName = "TODO_LIST_PROVIDER";
 
   static SqliteConnectionFactory? _instance;
+
   Database? db;
   final _lock = Lock();
 
@@ -23,8 +24,8 @@ class SqliteConnectionFactory {
     var databasePathFinal = join(databasePath, _databaseName);
 
     if (db == null) {
-      _lock.synchronized(() async {
-        db = await openDatabase(
+      await _lock.synchronized(() async {
+        db ??= await openDatabase(
           databasePathFinal,
           version: _version,
           onConfigure: _onConfigure,

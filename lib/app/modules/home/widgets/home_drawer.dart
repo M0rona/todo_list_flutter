@@ -79,7 +79,9 @@ class HomeDrawer extends StatelessWidget {
 
                             Loader.hide();
 
-                            Navigator.pop(context);
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                            }
                           } else {
                             Messages.of(context).showError("Nome obrigatório");
                           }
