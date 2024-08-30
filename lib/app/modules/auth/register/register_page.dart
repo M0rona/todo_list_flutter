@@ -39,7 +39,8 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       sucessCalback: (notifier, listenerInstace) {
         listenerInstace.dispose();
-        Navigator.pop(context);
+        // Removido devido a alteração do AuthProvider
+        // Navigator.pop(context);
       },
     );
   }
