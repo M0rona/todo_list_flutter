@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_provider/app/core/notifier/default_listener_notifier.dart';
 import 'package:todo_list_provider/app/core/ui/theme_extensions.dart';
 import 'package:todo_list_provider/app/modules/home/home_controller.dart';
 import 'package:todo_list_provider/app/modules/home/widgets/home_drawer.dart';
@@ -18,8 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _goToCreateTask(BuildContext context) {
-    Navigator.of(context).push(
+  Future<void> _goToCreateTask(BuildContext context) async {
+    await Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -38,13 +39,25 @@ class _HomePageState extends State<HomePage> {
             TaskModule().getPage("/task/create", context),
       ),
     );
+
+    widget._homeController.refreshPage();
   }
 
   @override
   void initState() {
     super.initState();
+    DefaultListenerNotifier(changeNotifier: widget._homeController).listener(
+      context: context,
+      sucessCalback: (notifier, listenerInstace) {
+        listenerInstace.dispose();
+      },
+    );
 
-    widget._homeController.loadTotalTasks();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget._homeController.loadTotalTasks();
+      widget._homeController
+          .findTasks(filter: widget._homeController.filterSeleted);
+    });
   }
 
   @override
