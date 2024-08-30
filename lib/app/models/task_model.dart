@@ -17,4 +17,18 @@ class TaskModel {
         dateTime: DateTime.parse(task['data_hora']),
         isFinish: task['finalizado'] == 1,
       );
+
+  TaskModel copyWith({
+    int? id,
+    String? description,
+    DateTime? dateTime,
+    bool? isFinish,
+  }) {
+    return TaskModel(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      dateTime: dateTime ?? this.dateTime,
+      isFinish: isFinish ?? this.isFinish,
+    );
+  }
 }
